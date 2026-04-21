@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const authApiInstance = axios.create({
-    baseURL: 'http://localhost:3000/api/auth', // backend ka URL
+    baseURL: '/api/auth', // backend ka URL
     withCredentials: true, // cookies ke liye
 });
 
