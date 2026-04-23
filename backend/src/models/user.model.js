@@ -3,14 +3,21 @@ import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
     email:{type: String, required: true, unique: true},
-    contact:{type: String, required: true},
-    password:{type: String, required: true},
+    contact:{type: String, required: false},
+    password:{type: String,
+         required: function(){
+            return !this.googleId; // Password is required only if googleId is not present
+         }},
     fullname:{type: String, required: true},
     role:{
         type: String,
         enum: ["buyer", "seller"],
         default: "buyer"
+    },
+    googleId:{
+        type: String,
     }
+
 })
 // Hash the password before saving the user this is middleware that runs before saving a user to the database. It checks if the password field has been modified, and if so, it hashes the password using bcrypt with a salt round of 10. 
 // The hashed password is then stored in the database instead of the plain text password.
